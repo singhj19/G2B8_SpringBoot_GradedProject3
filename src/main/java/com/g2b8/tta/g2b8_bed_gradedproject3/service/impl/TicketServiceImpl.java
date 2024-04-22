@@ -25,12 +25,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void deleteById(int ticketId) {
-
+    public Ticket getById(long ticketId) {
+        return ticketRepository.findById(ticketId).get();
     }
 
     @Override
-    public void editById(int ticketId) {
-
+    public void deleteById(long ticketId) {
+        ticketRepository.deleteById(ticketId);
     }
 }

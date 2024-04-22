@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -47,5 +48,39 @@ public class TicketController {
         theModel.addAttribute("ticket", ticket);
 
         return "ticket-form";
+    }
+
+    @PostMapping("/view")
+    public String viewTicket(
+            @RequestParam("ticketId") long ticketId, Model theModel) {
+
+        Ticket ticket = ticketService.getById(ticketId);
+
+        theModel.addAttribute("ticket", ticket);
+
+        // send over to our form
+        return "view-ticket-form";
+    }
+
+    @PostMapping("/delete")
+    public String deleteTicket(
+            @RequestParam("ticketId") long ticketId, Model theModel) {
+
+        ticketService.deleteById(ticketId);
+        return "redirect:/ticket/list";
+
+    }
+
+    @PostMapping("/edit")
+    public String editTicket(
+            @RequestParam("ticketId") long ticketId, Model theModel) {
+
+        Ticket ticket = ticketService.getById(ticketId);
+
+
+        theModel.addAttribute("ticket", ticket);
+
+        // send over to our form
+        return "update-ticket-form";
     }
 }
