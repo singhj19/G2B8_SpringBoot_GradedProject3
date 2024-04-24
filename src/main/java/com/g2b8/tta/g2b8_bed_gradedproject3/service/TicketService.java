@@ -7,7 +7,11 @@ import java.util.List;
 public interface TicketService {
     List<Ticket> list();
 
-    public void save(Ticket ticket);
-    public Ticket getById(long ticketId);
-    public void deleteById(long ticketId);
+    void save(Ticket ticket);
+
+    Ticket getById(long ticketId);
+
+    void deleteById(long ticketId);
+
+    List<Ticket> searchByCreatedOnEmpty(String contentORdescription);
 }

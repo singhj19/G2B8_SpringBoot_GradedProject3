@@ -1,5 +1,6 @@
 package com.g2b8.tta.g2b8_bed_gradedproject3.controller;
 
+import ch.qos.logback.core.model.conditional.ThenModel;
 import com.g2b8.tta.g2b8_bed_gradedproject3.model.Ticket;
 import com.g2b8.tta.g2b8_bed_gradedproject3.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,7 @@ public class TicketController {
     }
 
     @PostMapping("/save")
-    public String saveEmployee(
-            @ModelAttribute("ticket") Ticket ticket) {
+    public String saveEmployee(@ModelAttribute("ticket") Ticket ticket) {
 
         // save the employee
         ticketService.save(ticket);
@@ -51,8 +51,7 @@ public class TicketController {
     }
 
     @PostMapping("/view")
-    public String viewTicket(
-            @RequestParam("ticketId") long ticketId, Model theModel) {
+    public String viewTicket(@RequestParam("ticketId") long ticketId, Model theModel) {
 
         Ticket ticket = ticketService.getById(ticketId);
 
@@ -63,8 +62,7 @@ public class TicketController {
     }
 
     @PostMapping("/delete")
-    public String deleteTicket(
-            @RequestParam("ticketId") long ticketId, Model theModel) {
+    public String deleteTicket(@RequestParam("ticketId") long ticketId, Model theModel) {
 
         ticketService.deleteById(ticketId);
         return "redirect:/ticket/list";
@@ -72,8 +70,7 @@ public class TicketController {
     }
 
     @PostMapping("/edit")
-    public String editTicket(
-            @RequestParam("ticketId") long ticketId, Model theModel) {
+    public String editTicket(@RequestParam("ticketId") long ticketId, Model theModel) {
 
         Ticket ticket = ticketService.getById(ticketId);
 
@@ -82,5 +79,18 @@ public class TicketController {
 
         // send over to our form
         return "update-ticket-form";
+    }
+
+    @RequestMapping("/search")
+    public String search(@RequestParam("contentORdescription") String contentORdescription, Model theModel) {
+
+        if (contentORdescription.trim().isEmpty()) {
+            return "redirect:/ticket/list";
+        } else {
+            List<Ticket> tickets = ticketService.searchByCreatedOnEmpty(contentORdescription);
+            theModel.addAttribute("tickets", tickets);
+            return "list-tickets";
+        }
+
     }
 }

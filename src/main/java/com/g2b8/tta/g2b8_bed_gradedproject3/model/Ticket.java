@@ -3,12 +3,14 @@ package com.g2b8.tta.g2b8_bed_gradedproject3.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
 @Entity
-@Table(name="ticket")
+@Table(name = "ticket")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +22,9 @@ public class Ticket {
     @Column(name = "short_description")
     private String shortDescription;
 
-    @Column(name="content")
+    @Column(name = "content")
     private String content;
 
     @Column(name = "created_on")
-    private LocalDate createdOn;
+    private Date createdOn;
 }
