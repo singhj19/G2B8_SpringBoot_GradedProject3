@@ -3,6 +3,7 @@ package com.g2b8.tta.g2b8_bed_gradedproject3.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -26,5 +27,6 @@ public class Ticket {
     private String content;
 
     @Column(name = "created_on")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdOn;
 }
